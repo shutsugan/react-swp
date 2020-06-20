@@ -1,0 +1,13 @@
+.slider {
+  display: flex;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.slider-belt {
+  display: flex;
+  align-items: center;
+  width: auto;
+  height: auto;
+}

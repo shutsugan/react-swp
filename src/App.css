@@ -7,6 +7,17 @@
   pointer-events: none;
 }
 
+.slider-item {
+  width: 11.11rem;
+  height: 10rem;
+  border: solid 1px #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
