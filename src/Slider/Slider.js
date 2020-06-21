@@ -20,7 +20,7 @@ const Slider = ({ slideBy, children }) => {
     setStartOffset(0);
   };
 
-  const handleTouchStart = (event) => {
+  const handleStart = (event) => {
     if (touchStatus !== 0) return;
 
     const clientX = event.clientX || event.touches[0].clientX;
@@ -29,7 +29,7 @@ const Slider = ({ slideBy, children }) => {
     setTouchStatus(1);
   };
 
-  const handleTouchMove = (event) => {
+  const handleMove = (event) => {
     if (!event.touches) event.preventDefault();
 
     const clientX = event.clientX || event.touches[0].clientX;
@@ -49,6 +49,11 @@ const Slider = ({ slideBy, children }) => {
     if (touchStatus !== 2) return;
 
     slideEnd();
+    resetState();
+    checkOffsetBoundaries();
+  };
+
+  const handleSlideEnd = () => {
     resetState();
     checkOffsetBoundaries();
   };
@@ -107,9 +112,12 @@ const Slider = ({ slideBy, children }) => {
       <div
         ref={belt}
         className="slider-belt"
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
+        onTouchStart={handleStart}
+        onTouchMove={handleMove}
         onTouchEnd={handleTouchEnd}
+        onMouseDown={handleStart}
+        onMouseMove={handleMove}
+        onMouseUp={handleSlideEnd}
       >
         {children}
       </div>
