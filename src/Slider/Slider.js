@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
 import "./index.css";
 
@@ -22,24 +23,26 @@ const Slider = ({ slideBy, children }) => {
   const handleTouchStart = (event) => {
     if (touchStatus !== 0) return;
 
-    const pageX = event.pageX || event.touches[0].pageX;
+    const clientX = event.clientX || event.touches[0].clientX;
 
-    setStartX(pageX);
+    setStartX(clientX);
     setTouchStatus(1);
   };
 
   const handleTouchMove = (event) => {
     if (!event.touches) event.preventDefault();
 
-    const pageX = event.pageX || event.touches[0].pageX;
-    setDelta(pageX - startX);
+    const clientX = event.clientX || event.touches[0].clientX;
+    const currentDelta = clientX - startX;
 
-    if (touchStatus === 1 && delta) {
+    setDelta(currentDelta);
+
+    if (touchStatus === 1 && currentDelta) {
       setTouchStatus(2);
       setStartOffset(offset);
     }
 
-    if (touchStatus === 2) moveTo(startOffset + delta);
+    if (touchStatus === 2) moveTo(startOffset + currentDelta);
   };
 
   const handleTouchEnd = () => {
@@ -65,19 +68,27 @@ const Slider = ({ slideBy, children }) => {
   const slideEnd = () => {
     const slideAmount = slideBy ? slideBy : slider.current.clientWidth;
 
-    if (startOffset > offset) {
-      const rightOffset = offset - slideAmount - delta;
-      const absRightOffset = Math.abs(rightOffset);
+    if (startOffset > offset) slideRight(slideAmount);
+    else slideLeft(slideAmount);
+  };
 
-      slideTo(absRightOffset);
-      setOffset(rightOffset);
-    } else {
-      const leftOffset = offset + slideAmount - delta;
-      const limitLeftOffset = Math.abs(leftOffset > 0 ? 0 : leftOffset);
+  const setOffsetAfterSlide = (absOffset, offset) => {
+    slideTo(absOffset);
+    setOffset(offset);
+  };
 
-      slideTo(limitLeftOffset);
-      setOffset(leftOffset);
-    }
+  const slideRight = (slideAmount = 0) => {
+    const rightOffset = offset - slideAmount - delta;
+    const absRightOffset = Math.abs(rightOffset);
+
+    setOffsetAfterSlide(absRightOffset, rightOffset);
+  };
+
+  const slideLeft = (slideAmount = 0) => {
+    const leftOffset = offset + slideAmount - delta;
+    const limitLeftOffset = Math.abs(leftOffset > 0 ? 0 : leftOffset);
+
+    setOffsetAfterSlide(limitLeftOffset, leftOffset);
   };
 
   const checkOffsetBoundaries = () => {
@@ -104,6 +115,14 @@ const Slider = ({ slideBy, children }) => {
       </div>
     </div>
   );
+};
+
+Slider.propTypes = {
+  slideBy: PropTypes.number,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
 };
 
 export default Slider;
