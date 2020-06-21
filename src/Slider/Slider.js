@@ -47,7 +47,7 @@ const Slider = ({ slideBy, children }) => {
 
     slideEnd();
     resetState();
-    checkBoundaries();
+    checkOffsetBoundaries();
   };
 
   const moveTo = (pixelOffset = 0) => {
@@ -66,19 +66,21 @@ const Slider = ({ slideBy, children }) => {
     const slideAmount = slideBy ? slideBy : slider.current.clientWidth;
 
     if (startOffset > offset) {
-      const rightOffset = Math.round(offset - slideAmount - delta);
+      const rightOffset = offset - slideAmount - delta;
+      const absRightOffset = Math.abs(rightOffset);
 
-      slideTo(Math.abs(rightOffset));
+      slideTo(absRightOffset);
       setOffset(rightOffset);
     } else {
-      const leftOffset = Math.floor(offset + slideAmount - delta);
+      const leftOffset = offset + slideAmount - delta;
+      const limitLeftOffset = Math.abs(leftOffset > 0 ? 0 : leftOffset);
 
-      slideTo(Math.abs(leftOffset > 0 ? 0 : leftOffset));
+      slideTo(limitLeftOffset);
       setOffset(leftOffset);
     }
   };
 
-  const checkBoundaries = () => {
+  const checkOffsetBoundaries = () => {
     const sliderOffset = slider.current.scrollLeft;
     const absRoundedOffset = Math.floor(Math.abs(offset));
     const absRoundedSliderOffset = Math.floor(Math.abs(sliderOffset));
