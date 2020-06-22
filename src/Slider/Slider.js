@@ -12,12 +12,14 @@ const Slider = ({ slideBy, children }) => {
   const [delta, setDelta] = useState(0);
   const [startOffset, setStartOffset] = useState(0);
   const [offset, setOffset] = useState(0);
+  const [startSwipe, setStartSwipe] = useState(0);
 
   const resetState = () => {
     setTouchStatus(0);
     setStartX(0);
     setDelta(0);
     setStartOffset(0);
+    setStartSwipe(0);
   };
 
   const handleStart = (event) => {
@@ -27,6 +29,7 @@ const Slider = ({ slideBy, children }) => {
 
     setStartX(clientX);
     setTouchStatus(1);
+    setStartSwipe(performance.now());
   };
 
   const handleMove = (event) => {
@@ -48,14 +51,17 @@ const Slider = ({ slideBy, children }) => {
   const handleTouchEnd = () => {
     if (touchStatus !== 2) return;
 
-    slideEnd();
+    swipe();
     resetState();
     checkOffsetBoundaries();
   };
 
-  const handleSlideEnd = () => {
-    resetState();
-    checkOffsetBoundaries();
+  const swipe = () => {
+    const endSwipe = performance.now();
+    const swipeTimeDiff = Math.round(endSwipe - startSwipe);
+    const swipeTime = 500;
+
+    if (swipeTimeDiff < swipeTime) slideEnd();
   };
 
   const moveTo = (pixelOffset = 0) => {
@@ -117,7 +123,7 @@ const Slider = ({ slideBy, children }) => {
         onTouchEnd={handleTouchEnd}
         onMouseDown={handleStart}
         onMouseMove={handleMove}
-        onMouseUp={handleSlideEnd}
+        onMouseUp={handleTouchEnd}
       >
         {children}
       </div>
