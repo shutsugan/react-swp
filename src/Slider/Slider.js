@@ -5,13 +5,12 @@ import "./index.css";
 
 const Slider = ({ slideBy, children }) => {
   const slider = useRef(null);
-  const belt = useRef(null);
 
   const [touchStatus, setTouchStatus] = useState(0);
   const [startX, setStartX] = useState(0);
-  const [delta, setDelta] = useState(0);
   const [startOffset, setStartOffset] = useState(0);
   const [offset, setOffset] = useState(0);
+  const [delta, setDelta] = useState(0);
   const [startSwipe, setStartSwipe] = useState(0);
 
   const resetState = () => {
@@ -116,7 +115,6 @@ const Slider = ({ slideBy, children }) => {
   return (
     <div ref={slider} className="slider">
       <div
-        ref={belt}
         className="slider-belt"
         onTouchStart={handleStart}
         onTouchMove={handleMove}
