@@ -7,7 +7,7 @@ import "./App.css";
 function App() {
   return (
     <div className="App">
-      <Slider>
+      <Slider arrows={true}>
         <div className="slider-item">1</div>
         <div className="slider-item">2</div>
         <div className="slider-item">3</div>

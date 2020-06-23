@@ -1,9 +1,10 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, memo } from "react";
 import PropTypes from "prop-types";
 
 import "./index.css";
+import SliderArrows from "./SliderArrows";
 
-const Slider = ({ slideBy, children }) => {
+const Slider = memo(({ slideBy, arrows, arrowsStyle, children }) => {
   const slider = useRef(null);
 
   const [touchStatus, setTouchStatus] = useState(0);
@@ -124,13 +125,16 @@ const Slider = ({ slideBy, children }) => {
         onMouseUp={handleTouchEnd}
       >
         {children}
+        {arrows && <SliderArrows style={arrowsStyle} />}
       </div>
     </div>
   );
-};
+});
 
 Slider.propTypes = {
   slideBy: PropTypes.number,
+  arrows: PropTypes.bool,
+  arrowsStyle: PropTypes.object,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
