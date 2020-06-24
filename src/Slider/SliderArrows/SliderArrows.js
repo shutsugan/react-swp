@@ -5,21 +5,42 @@ import chevron from "./chevron.svg";
 
 import "./index.css";
 
-const SliderArrows = memo(({ style = {} }) => {
+const SliderArrows = memo(({ style = {}, visibility }) => {
+  const { leftBoundaryInView, rightBoundaryInView } = visibility;
+
+  const leftArrow = (
+    <div className={leftBoundaryInView ? "hide-arrow" : "arrow"}>
+      <img
+        className="arrow-svg svg-left"
+        style={style}
+        src={chevron}
+        alt="Left arrow"
+      />
+    </div>
+  );
+
+  const rightArrow = (
+    <div className={rightBoundaryInView ? "hide-arrow" : "arrow"}>
+      <img
+        className="arrow-svg"
+        style={style}
+        src={chevron}
+        alt="Right arrow"
+      />
+    </div>
+  );
+
   return (
     <div className="slider-arrows">
-      <div className="arrow">
-        <img className="arrow-svg svg-left" src={chevron} alt="Left arrow" />
-      </div>
-      <div className="arrow">
-        <img className="arrow-svg" src={chevron} alt="Right arrow" />
-      </div>
+      {leftArrow}
+      {rightArrow}
     </div>
   );
 });
 
 SliderArrows.propTypes = {
   style: PropTypes.object,
+  visibility: PropTypes.object.isRequired,
 };
 
 export default SliderArrows;

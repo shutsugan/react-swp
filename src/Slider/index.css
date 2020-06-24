@@ -12,3 +12,7 @@
   width: auto;
   height: auto;
 }
+
+.slider-right-boundary {
+  width: 0.5px;
+}

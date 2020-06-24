@@ -3,9 +3,12 @@ import PropTypes from "prop-types";
 
 import "./index.css";
 import SliderArrows from "./SliderArrows";
+import useOnScreen from "../utils/useOnScreen";
 
 const Slider = memo(({ slideBy, arrows, arrowsStyle, children }) => {
   const slider = useRef(null);
+  const leftBoundary = useRef(null);
+  const rightBoundary = useRef(null);
 
   const [touchStatus, setTouchStatus] = useState(0);
   const [startX, setStartX] = useState(0);
@@ -111,7 +114,8 @@ const Slider = memo(({ slideBy, arrows, arrowsStyle, children }) => {
     if (offset > 0) setOffset(0);
   };
 
-  useEffect(() => {}, []);
+  const leftBoundaryInView = useOnScreen(leftBoundary);
+  const rightBoundaryInView = useOnScreen(rightBoundary);
 
   return (
     <div ref={slider} className="slider">
@@ -124,8 +128,15 @@ const Slider = memo(({ slideBy, arrows, arrowsStyle, children }) => {
         onMouseMove={handleMove}
         onMouseUp={handleTouchEnd}
       >
+        <div ref={leftBoundary} />
         {children}
-        {arrows && <SliderArrows style={arrowsStyle} />}
+        <div className="slider-right-boundary" ref={rightBoundary} />
+        {arrows && (
+          <SliderArrows
+            style={arrowsStyle}
+            visibility={{ leftBoundaryInView, rightBoundaryInView }}
+          />
+        )}
       </div>
     </div>
   );
