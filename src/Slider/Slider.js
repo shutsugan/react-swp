@@ -16,6 +16,7 @@ const Slider = memo(({ slideBy, arrows, arrowsStyle, children }) => {
   const [offset, setOffset] = useState(0);
   const [delta, setDelta] = useState(0);
   const [startSwipe, setStartSwipe] = useState(0);
+  const [slideAmount, setSlideAmount] = useState(0);
 
   const resetState = () => {
     setTouchStatus(0);
@@ -80,8 +81,6 @@ const Slider = memo(({ slideBy, arrows, arrowsStyle, children }) => {
   };
 
   const slideEnd = () => {
-    const slideAmount = slideBy ? slideBy : slider.current.clientWidth;
-
     if (startOffset > offset) slideRight(slideAmount);
     else slideLeft(slideAmount);
   };
@@ -117,6 +116,11 @@ const Slider = memo(({ slideBy, arrows, arrowsStyle, children }) => {
   const leftBoundaryInView = useOnScreen(leftBoundary);
   const rightBoundaryInView = useOnScreen(rightBoundary);
 
+  useEffect(() => {
+    const slidingAmount = slideBy ? slideBy : slider.current.clientWidth;
+    setSlideAmount(slidingAmount);
+  }, [slideBy]);
+
   return (
     <div ref={slider} className="slider">
       <div
@@ -134,6 +138,7 @@ const Slider = memo(({ slideBy, arrows, arrowsStyle, children }) => {
         {arrows && (
           <SliderArrows
             style={arrowsStyle}
+            handleSlide={{ slideTo, setOffset, slideAmount, offset }}
             visibility={{ leftBoundaryInView, rightBoundaryInView }}
           />
         )}

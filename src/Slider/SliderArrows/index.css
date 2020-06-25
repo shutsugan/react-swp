@@ -38,3 +38,9 @@
 .svg-left {
   transform: rotate(180deg);
 }
+
+@media screen and (max-width: 640px) {
+  .slider-arrows {
+    display: none;
+  }
+}
