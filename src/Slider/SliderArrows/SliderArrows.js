@@ -68,6 +68,7 @@ const SliderArrows = memo(({ style = {}, visibility, handleSlide }) => {
 SliderArrows.propTypes = {
   style: PropTypes.object,
   visibility: PropTypes.object.isRequired,
+  handleSlide: PropTypes.object.isRequired,
 };
 
 export default SliderArrows;
