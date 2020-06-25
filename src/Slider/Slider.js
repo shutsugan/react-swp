@@ -1,9 +1,10 @@
 import React, { useRef, useState, useEffect, memo } from "react";
 import PropTypes from "prop-types";
 
-import "./index.css";
 import SliderArrows from "./SliderArrows";
 import useOnScreen from "../utils/useOnScreen";
+
+import "./index.css";
 
 const Slider = memo(({ slideBy, arrows, arrowsStyle, children }) => {
   const slider = useRef(null);
@@ -116,6 +117,9 @@ const Slider = memo(({ slideBy, arrows, arrowsStyle, children }) => {
   const leftBoundaryInView = useOnScreen(leftBoundary);
   const rightBoundaryInView = useOnScreen(rightBoundary);
 
+  const handleArrowSlide = { setOffsetAfterSlide, slideAmount, offset };
+  const arrowVisibility = { leftBoundaryInView, rightBoundaryInView };
+
   useEffect(() => {
     const slidingAmount = slideBy ? slideBy : slider.current.clientWidth;
     setSlideAmount(slidingAmount);
@@ -134,12 +138,12 @@ const Slider = memo(({ slideBy, arrows, arrowsStyle, children }) => {
       >
         <div ref={leftBoundary} />
         {children}
-        <div className="slider-right-boundary" ref={rightBoundary} />
+        <div ref={rightBoundary} className="slider-right-boundary" />
         {arrows && (
           <SliderArrows
             style={arrowsStyle}
-            handleSlide={{ slideTo, setOffset, slideAmount, offset }}
-            visibility={{ leftBoundaryInView, rightBoundaryInView }}
+            handleSlide={handleArrowSlide}
+            visibility={arrowVisibility}
           />
         )}
       </div>

@@ -7,31 +7,29 @@ import "./index.css";
 
 const SliderArrows = memo(({ style = {}, visibility, handleSlide }) => {
   const { leftBoundaryInView, rightBoundaryInView } = visibility;
-  const { slideTo, setOffset, slideAmount, offset } = handleSlide;
+  const { setOffsetAfterSlide, slideAmount, offset } = handleSlide;
 
   const handleSlideLeft = () => {
     const leftOffset = offset + slideAmount;
     const limitLeftOffset = Math.abs(leftOffset > 0 ? 0 : leftOffset);
 
-    slideTo(limitLeftOffset);
-    setOffset(leftOffset);
+    setOffsetAfterSlide(limitLeftOffset, leftOffset);
   };
 
   const handleSlideRight = () => {
     const rightOffset = offset - slideAmount;
     const absRightOffset = Math.abs(rightOffset);
 
-    slideTo(absRightOffset);
-    setOffset(rightOffset);
+    setOffsetAfterSlide(absRightOffset, rightOffset);
   };
 
-  const handleMouseDown = (event) => event.stopPropagation();
+  const stopMouseDown = (event) => event.stopPropagation();
 
   const leftArrow = (
     <div
       className={leftBoundaryInView ? "hide-arrow" : "arrow"}
       onClick={handleSlideLeft}
-      onMouseDown={handleMouseDown}
+      onMouseDown={stopMouseDown}
     >
       <img
         className="arrow-svg svg-left"
@@ -46,7 +44,7 @@ const SliderArrows = memo(({ style = {}, visibility, handleSlide }) => {
     <div
       className={rightBoundaryInView ? "hide-arrow" : "arrow"}
       onClick={handleSlideRight}
-      onMouseDown={handleMouseDown}
+      onMouseDown={stopMouseDown}
     >
       <img
         className="arrow-svg"
