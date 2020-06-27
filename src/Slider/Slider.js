@@ -86,20 +86,20 @@ const Slider = memo(({ slideBy, arrows, arrowsStyle, children }) => {
     else slideLeft(slideAmount);
   };
 
-  const setOffsetAfterSlide = (absOffset, offset) => {
+  const setOffsetAfterSlide = (absOffset, currentOffset) => {
     slideTo(absOffset);
-    setOffset(offset);
+    setOffset(currentOffset);
   };
 
-  const slideRight = (slideAmount = 0) => {
-    const rightOffset = offset - slideAmount - delta;
+  const slideRight = (amount = 0) => {
+    const rightOffset = offset - amount - delta;
     const absRightOffset = Math.abs(rightOffset);
 
     setOffsetAfterSlide(absRightOffset, rightOffset);
   };
 
-  const slideLeft = (slideAmount = 0) => {
-    const leftOffset = offset + slideAmount - delta;
+  const slideLeft = (amount = 0) => {
+    const leftOffset = offset + amount - delta;
     const limitLeftOffset = Math.abs(leftOffset > 0 ? 0 : leftOffset);
 
     setOffsetAfterSlide(limitLeftOffset, leftOffset);
