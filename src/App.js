@@ -4,7 +4,7 @@ import Slider from "./Slider";
 
 import "./App.css";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <Slider arrows={true}>
@@ -17,6 +17,6 @@ function App() {
       </Slider>
     </div>
   );
-}
+};
 
 export default App;
