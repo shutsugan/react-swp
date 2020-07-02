@@ -13,6 +13,7 @@ test("renders learn react link", () => {
     <Slider>
       <div>1</div>
       <div>2</div>
+      <div>3</div>
     </Slider>
   );
   const element = getByText(/1/i);
