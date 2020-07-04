@@ -12,10 +12,9 @@ test("renders learn react link", () => {
   const { getByText } = render(
     <Slider>
       <div>1</div>
-      <div>2</div>
-      <div>3</div>
     </Slider>
   );
   const element = getByText(/1/i);
+
   expect(element).toBeInTheDocument();
 });
