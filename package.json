@@ -1,9 +1,12 @@
 {
   "name": "react-swp",
-  "version": "0.2.2",
+  "version": "0.1.5",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.js",
+  "dependencies": {
+    "react": "^16.13.1"
+  },
   "scripts": {
     "build": "rm -rf dist && mkdir dist && npx babel src/Slider --out-dir dist --copy-files"
   },
