@@ -2,8 +2,8 @@ import React, { useRef, useState, useEffect, memo } from "react";
 import PropTypes from "prop-types";
 
 import SliderArrows from "./SliderArrows";
-import useOnScreen from "../utils/useOnScreen";
-import useWindowSize from "../utils/useWindowSize";
+import useOnScreen from "./utils/useOnScreen";
+import useWindowSize from "./utils/useWindowSize";
 
 import "./index.css";
 
