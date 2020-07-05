@@ -4,11 +4,6 @@
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.js",
-  "dependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
-  },
   "scripts": {
     "build": "rm -rf dist && mkdir dist && npx babel src/Slider --out-dir dist --copy-files"
   },
