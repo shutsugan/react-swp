@@ -31,7 +31,7 @@ const Slider = memo(({ slideBy, arrows, arrowsStyle, children }) => {
   const handleStart = (event) => {
     if (touchStatus !== 0) return;
 
-    const clientX = event.clientX || event.touches[0].clientX;
+    const clientX = event.clientX || event.touches[0]?.clientX;
 
     setStartX(clientX);
     setTouchStatus(1);
@@ -41,7 +41,7 @@ const Slider = memo(({ slideBy, arrows, arrowsStyle, children }) => {
   const handleMove = (event) => {
     if (!event.touches) event.preventDefault();
 
-    const clientX = event.clientX || event.touches[0].clientX;
+    const clientX = event.clientX || event.touches[0]?.clientX;
     const currentDelta = clientX - startX;
 
     setDelta(currentDelta);
