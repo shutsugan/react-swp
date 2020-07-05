@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import SliderArrows from "./SliderArrows";
 import useOnScreen from "../utils/useOnScreen";
+import useWindowSize from "../utils/useWindowSize";
 
 import "./index.css";
 
@@ -116,6 +117,7 @@ const Slider = memo(({ slideBy, arrows, arrowsStyle, children }) => {
 
   const leftBoundaryInView = useOnScreen(leftBoundary);
   const rightBoundaryInView = useOnScreen(rightBoundary);
+  const windowSize = useWindowSize();
 
   const handleArrowSlide = { setOffsetAfterSlide, slideAmount, offset };
   const arrowVisibility = { leftBoundaryInView, rightBoundaryInView };
@@ -123,7 +125,7 @@ const Slider = memo(({ slideBy, arrows, arrowsStyle, children }) => {
   useEffect(() => {
     const slidingAmount = slideBy ? slideBy : slider.current.clientWidth;
     setSlideAmount(slidingAmount);
-  }, [slideBy]);
+  }, [slideBy, windowSize]);
 
   return (
     <div ref={slider} className="slider">
