@@ -3,6 +3,10 @@
 react-swp is a lightweight swiper component for React with zero dependencies.
 the component works seamlessly on desktop and mobile apps with touch and swiping.
 
+## Live Demo
+
+Code sandbox Live [Demo](https://codesandbox.io/s/elegant-fog-ntjjx?file=/src/index.js)
+
 ## Example
 
 ```shell
@@ -42,11 +46,15 @@ export default SimpleSlider;
 
 Display arrows using the `arrows` prop
 and customize the arrows size and looks
-by using the `arrowsStyle` prop
+by using the `arrowsStyle` and `arrowsIcon` props
+
+> Arrows are not displayed in mobile view
 
 ```javascript
 import React from "react";
 import Slider from "react-swp";
+
+import chevron from "./chevron.svg";
 
 const arrowsStyle = {
   color: "#ddd",
@@ -54,7 +62,7 @@ const arrowsStyle = {
 };
 
 const sliderWithArrows = () => (
-  <Slider arrows arrowsStyle={arrowsStyle}>
+  <Slider arrows arrowsStyle={arrowsStyle} arrowsIcon={chevron}>
     <div>Slide 1</div>
     <div>Slide 2</div>
     ....
@@ -85,3 +93,12 @@ const sliderWithCustomSlidingSize = () => (
 
 export default sliderWithCustomSlidingSize;
 ```
+
+## Component Props
+
+| prop        | tyep    | value                         | example                                             |
+| ----------- | ------- | ----------------------------- | --------------------------------------------------- |
+| arrows      | Boolean | displays the arrows if truthy | `arrows={true}`                                     |
+| arrowsStyle | Object  | Object of css key values      | `arrowsStyle={{color: "#000", background: "#fff"}}` |
+| arrowsIcon  | File    | Image or Svg file             | `arrowsIcon={imported-file}`                        |
+| slideBy     | Number  | Amount to move by             | `slideBy={200}`                                     |
