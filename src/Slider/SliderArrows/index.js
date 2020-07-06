@@ -29,7 +29,14 @@ const SliderArrows = memo(({ style = {}, icon, visibility, handleSlide }) => {
       onClick={handleSlideLeft}
       onMouseDown={stopMouseDown}
     >
-      <img className="arrow-svg" style={style} src={icon} alt="Left arrow" />
+      {icon && (
+        <img
+          className="arrow-svg svg-left"
+          style={style}
+          src={icon}
+          alt="Left arrow"
+        />
+      )}
     </div>
   );
 
@@ -39,7 +46,9 @@ const SliderArrows = memo(({ style = {}, icon, visibility, handleSlide }) => {
       onClick={handleSlideRight}
       onMouseDown={stopMouseDown}
     >
-      <img className="arrow-svg" style={style} src={icon} alt="Right arrow" />
+      {icon && (
+        <img className="arrow-svg" style={style} src={icon} alt="Right arrow" />
+      )}
     </div>
   );
 
