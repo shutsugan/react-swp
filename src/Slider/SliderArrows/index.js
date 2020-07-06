@@ -1,11 +1,9 @@
 import React, { memo } from "react";
 import PropTypes from "prop-types";
 
-import chevron from "./chevron.svg";
-
 import "./index.css";
 
-const SliderArrows = memo(({ style = {}, visibility, handleSlide }) => {
+const SliderArrows = memo(({ style = {}, icon, visibility, handleSlide }) => {
   const { leftBoundaryInView, rightBoundaryInView } = visibility;
   const { setOffsetAfterSlide, slideAmount, offset } = handleSlide;
 
@@ -31,12 +29,7 @@ const SliderArrows = memo(({ style = {}, visibility, handleSlide }) => {
       onClick={handleSlideLeft}
       onMouseDown={stopMouseDown}
     >
-      <img
-        className="arrow-svg svg-left"
-        style={style}
-        src={chevron}
-        alt="Left arrow"
-      />
+      <img className="arrow-svg" style={style} src={icon} alt="Left arrow" />
     </div>
   );
 
@@ -46,12 +39,7 @@ const SliderArrows = memo(({ style = {}, visibility, handleSlide }) => {
       onClick={handleSlideRight}
       onMouseDown={stopMouseDown}
     >
-      <img
-        className="arrow-svg"
-        style={style}
-        src={chevron}
-        alt="Right arrow"
-      />
+      <img className="arrow-svg" style={style} src={icon} alt="Right arrow" />
     </div>
   );
 
@@ -65,6 +53,7 @@ const SliderArrows = memo(({ style = {}, visibility, handleSlide }) => {
 
 SliderArrows.propTypes = {
   style: PropTypes.object,
+  icon: PropTypes.node,
   visibility: PropTypes.object.isRequired,
   handleSlide: PropTypes.object.isRequired,
 };

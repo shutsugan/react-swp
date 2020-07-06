@@ -35,7 +35,7 @@
   height: 1rem;
 }
 
-.svg-left {
+.arrow-svg:first-child {
   transform: rotate(180deg);
 }
 
