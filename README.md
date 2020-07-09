@@ -102,3 +102,5 @@ export default sliderWithCustomSlidingSize;
 | arrowsStyle | Object  | Object of css key values      | `arrowsStyle={{color: "#000", background: "#fff"}}` |
 | arrowsIcon  | File    | Image or Svg file             | `arrowsIcon={imported-file}`                        |
 | slideBy     | Number  | Amount to move by             | `slideBy={200}`                                     |
+
+# Buy me a coffee
