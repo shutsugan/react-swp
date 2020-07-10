@@ -56,9 +56,8 @@ const Slider = memo(
     };
 
     const handleTouchEnd = () => {
-      if (touchStatus !== 2) return;
+      if (touchStatus === 2) swipe();
 
-      swipe();
       resetState();
       checkOffsetBoundaries();
     };
@@ -124,8 +123,7 @@ const Slider = memo(
     const arrowVisibility = { leftBoundaryInView, rightBoundaryInView };
 
     useEffect(() => {
-      const slidingAmount = slideBy ? slideBy : slider.current.clientWidth;
-      setSlideAmount(slidingAmount);
+      setSlideAmount(slideBy ? slideBy : slider.current.clientWidth);
     }, [slideBy, windowSize]);
 
     return (
