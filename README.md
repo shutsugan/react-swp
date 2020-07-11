@@ -104,3 +104,5 @@ export default sliderWithCustomSlidingSize;
 | slideBy     | Number  | Amount to move by             | `slideBy={200}`                                     |
 
 # Buy me a coffee
+
+[link](https://example.com)
