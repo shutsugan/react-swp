@@ -40,8 +40,6 @@ const Slider = memo(
     };
 
     const handleMove = (event) => {
-      if (!event.touches) event.preventDefault();
-
       const clientX = event.clientX || event.touches[0].clientX;
       const currentDelta = clientX - startX;
 
