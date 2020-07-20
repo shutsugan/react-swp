@@ -45,9 +45,8 @@ const Slider = memo(
       const clientX = event.clientX || event.touches[0].clientX;
       const currentDelta = clientX - startX;
 
-      setDelta(currentDelta);
-
       if (touchStatus === 1 && currentDelta) {
+        setDelta(currentDelta);
         setTouchStatus(2);
         setStartOffset(offset);
       }
