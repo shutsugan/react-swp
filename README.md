@@ -5,7 +5,7 @@ the component works seamlessly on desktop and mobile apps with touch and swiping
 
 ## Live Demo
 
-Code sandbox Live [Demo](https://codesandbox.io/s/elegant-fog-ntjjx?file=/src/index.js)
+Sandbox code [Demo](https://codesandbox.io/s/elegant-fog-ntjjx?file=/src/index.js)
 
 ## Example
 
