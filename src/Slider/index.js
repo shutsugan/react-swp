@@ -21,6 +21,8 @@ const Slider = memo(
     const [startSwipe, setStartSwipe] = useState(0);
     const [slideAmount, setSlideAmount] = useState(0);
 
+    const getClientX = (event) => event.clientX || event.touches[0].clientX;
+
     const resetState = () => {
       setTouchStatus(0);
       setStartX(0);
@@ -30,29 +32,28 @@ const Slider = memo(
     };
 
     const handleStart = (event) => {
-      if (touchStatus !== 0) return;
+      const initTouch = touchStatus === 0;
 
-      const clientX = event.clientX || event.touches[0].clientX;
-
-      setStartX(clientX);
-      setTouchStatus(1);
-      setStartSwipe(performance.now());
+      setStartX(initTouch ? getClientX(event) : startX);
+      setTouchStatus(initTouch ? 1 : touchStatus);
+      setStartSwipe(initTouch ? performance.now() : startSwipe);
     };
 
     const handleMove = (event) => {
       if (!event.touches) event.preventDefault();
 
-      const clientX = event.clientX || event.touches[0].clientX;
+      const clientX = getClientX(event);
       const currentDelta = clientX - startX;
+      const moveToOffset = startOffset + currentDelta;
+      const isStartMoving = touchStatus === 1 && currentDelta;
+      const isMoving = touchStatus === 2;
 
       setDelta(currentDelta);
+      setTouchStatus(isStartMoving ? 2 : touchStatus);
+      setStartOffset(isStartMoving ? offset : startOffset);
+      setOffset(isMoving ? moveToOffset : offset);
 
-      if (touchStatus === 1 && currentDelta) {
-        setTouchStatus(2);
-        setStartOffset(offset);
-      }
-
-      if (touchStatus === 2) moveTo(startOffset + currentDelta);
+      if (isMoving) slider.current.scrollLeft = -moveToOffset;
     };
 
     const handleTouchEnd = () => {
@@ -68,11 +69,6 @@ const Slider = memo(
       const swipeTime = 500;
 
       if (swipeTimeDiff < swipeTime) slideEnd();
-    };
-
-    const moveTo = (pixelOffset = 0) => {
-      setOffset(pixelOffset);
-      slider.current.scrollLeft = -pixelOffset;
     };
 
     const slideTo = (pixelOffset = 0) => {
